@@ -1,0 +1,30 @@
+cmd "00_core" {
+    exec = "roscore";
+    host = "localhost";
+}
+cmd "01_tf" {
+    exec = "roslaunch device_description device_description.launch";
+    host = "localhost";
+}
+cmd "02_lidar" {
+    exec = "roslaunch velodyne_pointcloud VLP16_points.launch";
+    host = "localhost";
+}
+cmd "03_imu" {
+    exec = "roslaunch xsens_driver xsens_driver.launch";
+    host = "localhost";
+}
+cmd "04_slam" {
+    exec = "roslaunch lego_loam run.launch";
+    host = "localhost";
+}
+
+
+
+script "start" {
+    start cmd "00_core" wait "running";
+    wait ms 1500;
+    start cmd "01_tf" wait "running";
+    start cmd "02_lidar" wait "running";
+    start cmd "03_imu" wait "running";
+}
