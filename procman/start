@@ -19,6 +19,11 @@ cmd "04_slam" {
     host = "localhost";
 }
 
+cmd "05_ply" {
+    exec = "roslaunch mapping velodyne_transform.launch";
+    host = "localhost";
+}
+
 
 
 script "start" {
@@ -27,4 +32,6 @@ script "start" {
     start cmd "01_tf" wait "running";
     start cmd "02_lidar" wait "running";
     start cmd "03_imu" wait "running";
+    start cmd "04_slam" wait "running";
+    start cmd "05_ply" wait "running";
 }
